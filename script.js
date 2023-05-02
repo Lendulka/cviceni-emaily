@@ -2,10 +2,9 @@ console.log('emaily')
 
 const filterEmailsRead = (emails) => {
     let inboxReadElm = document.querySelector('#inbox-read')
-    inboxReadElm.innerHTML +=
-        emails
-            .filter(oneEmail => oneEmail.unread === false)
-            .map((oneEmail) => `
+    inboxReadElm.innerHTML += emails
+        .filter(oneEmail => oneEmail.unread === false)
+        .map((oneEmail) => `
                 <div class="email">
                     <div class="email__head">
                         <button class="email__icon email__icon--opened"></button>
@@ -18,16 +17,15 @@ const filterEmailsRead = (emails) => {
                     <div class="email__body"></div>
                 </div>
                 `
-            )
-            .join('')
+        )
+        .join('')
 }
 
 const filterEmailsUnread = (emails) => {
     let inboxUnreadElm = document.querySelector('#inbox-unread')
-    inboxUnreadElm.innerHTML +=
-        emails
-            .filter(oneEmail => oneEmail.unread === true)
-            .map((oneEmail) => `
+    inboxUnreadElm.innerHTML += emails
+        .filter(oneEmail => oneEmail.unread === true)
+        .map((oneEmail) => `
                 <div class="email">
                     <div class="email__head">
                         <button class="email__icon email__icon--closed"></button>
@@ -40,8 +38,8 @@ const filterEmailsUnread = (emails) => {
                     <div class="email__body"></div>
                 </div>
                 `
-            )
-            .join('')
+        )
+        .join('')
 }
 
 fetch('https://apps.kodim.cz/daweb/trening-api/apis/emails')
