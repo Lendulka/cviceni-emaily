@@ -1,23 +1,27 @@
 console.log('emaily')
 
-import { Inbox } from './Inbox/index.js'
+import { EmailSection } from './EmailSection/index.js'
 
-const inboxElm = document.querySelector('#inbox')
+const appElm = document.querySelector('#app')
 
 fetch('https://apps.kodim.cz/daweb/trening-api/apis/emails?folder=unread')
     .then((response) => response.json())
     .then((data) => {
-        inboxElm.innerHTML += Inbox({
+        appElm.append(EmailSection({
+            heading: 'Nepřečtené',
             emails: data.emails,
-            unread: 'true',
-        })
+            folder: 'unread',
+        }))
     })
 
 fetch('https://apps.kodim.cz/daweb/trening-api/apis/emails?folder=read')
     .then((response) => response.json())
     .then((data) => {
-        inboxElm.innerHTML += Inbox({
+        appElm.append(EmailSection({
+            heading: 'Přečtené',
             emails: data.emails,
-            unread: 'false',
-        })
+            folder: 'read',
+        }))
     })
+
+
