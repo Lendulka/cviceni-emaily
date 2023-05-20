@@ -26,7 +26,16 @@ export const EmailSection = (props) => {
         return element
     }
 
-    const listEmails = emailResult.map(oneEmail => Email(oneEmail))
+    const listEmails = emailResult.map(oneEmail => Email(
+        {
+            id: oneEmail.id,
+            senderName: oneEmail.sender.name,
+            subject: oneEmail.subject,
+            time: oneEmail.time,
+            unread: oneEmail.unread,
+        }
+    ))
+
     element.querySelector('.emails').append(...listEmails)
 
     return element

@@ -1,6 +1,6 @@
 
 export const Email = (props) => {
-    const { id, sender, subject, time, unread, body } = props
+    const { id, senderName, subject, time, unread, body } = props
 
     let buttonClass = ''
     if (unread) {
@@ -12,7 +12,7 @@ export const Email = (props) => {
     const element = document.createElement('div')
     element.classList.add('email')
 
-    if (body !== undefined) {
+    if (body) {
         element.classList.add('email--expand')
     } else {
         element.classList.remove('email--expand')
@@ -22,7 +22,7 @@ export const Email = (props) => {
         <div class="email__head">
             <button class="email__icon email__icon--${buttonClass}"></button>
             <div class="email__info">
-                <div class="email__sender">${sender.name}</div>
+                <div class="email__sender">${senderName}</div>
                 <div class="email__subject">${subject}</div>
             </div>
             <div class="email__time">${time}</div>
@@ -31,18 +31,19 @@ export const Email = (props) => {
     `
 
     element.querySelector('.email__icon').addEventListener('click', () => {
-        if (body === undefined) {
+        if (!body) {
             fetch(`https://apps.kodim.cz/daweb/trening-api/apis/emails/${id}`)
                 .then((response) => response.json())
                 .then((data) => {
+                    const { sender, subject, time, unread, id, body } = data
                     element.replaceWith(
                         Email({
-                            sender: sender,
-                            subject: subject,
-                            time: time,
-                            unread: unread,
-                            id: id,
-                            body: data.body,
+                            senderName: sender.name,
+                            subject,
+                            time,
+                            unread,
+                            id,
+                            body,
                         })
                     )
                 })
@@ -51,11 +52,11 @@ export const Email = (props) => {
         } else {
             element.replaceWith(
                 Email({
-                    sender: sender,
-                    subject: subject,
-                    time: time,
-                    unread: unread,
-                    id: id,
+                    senderName,
+                    subject,
+                    time,
+                    unread,
+                    id,
                 })
             )
             return element
